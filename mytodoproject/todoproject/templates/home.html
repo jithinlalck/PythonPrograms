@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="banner" style="background-color:darkslateblue; width:100%; height:100px; margin-bottom:50px;">
+                <div class="banner-text" style="top:5%; left:50%; position:absolute; transform:transform">
+                    <h1>ToDo</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+<div class="row">
+<div class="col-md-6">
+<form action="" method="post" class="p-3 shadow" enctype="multipart/form-data">
+{% csrf_token %}
+    <br>
+<div class="form-group">
+    <label class="col-sm-6 control-label no-padding-right">
+        Task Name<span class="required">*</span>
+    </label>
+    <div class="col-xs-12 col-sm-6">
+        <div class="input-group col-xs-12 col-sm-9">
+            <input type="text" name="txtName" class="form-control">
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-6 control-label no-padding-right">
+        Priority<span class="required">*</span>
+    </label>
+    <div class="col-xs-12 col-sm-6">
+        <div class="input-group col-xs-12 col-sm-9">
+            <input type="text" name="txtPriority" class="form-control">
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-6 control-label no-padding-right">
+        Date<span class="required">*</span>
+    </label>
+    <div class="col-xs-12 col-sm-6">
+        <div class="input-group col-xs-12 col-sm-9">
+            <input type="date" name="txtDate" class="form-control">
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-3 control-label no-padding-right">
+    </label>
+    <div class="col-xs-12 col-sm-3">
+        <div class="input-group col-xs-12 col-sm-9">
+            <input type='submit' class="form-control btn btn-primary">
+        </div>
+    </div>
+</div>
+</form>
+<!--    <br>-->
+<!--    <table id="DataTable" class="table table-striped-->
+<!--        table-bordered table-hover">-->
+<!--        <thead>-->
+<!--            <tr>-->
+<!--                <th class="hidden-480">Task Name-->
+<!--                </th>-->
+<!--                <th class="hidden-480">Priority-->
+<!--                </th>-->
+<!--            </tr>-->
+<!--        </thead>-->
+<!--        <tbody id="DataGrid">-->
+<!--        {% for i in task %}-->
+<!--         <tr>-->
+<!--            <td>-->
+<!--                {{i.name}}-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                {{i.priority}}-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        {% endfor %}-->
+<!--        </tbody>-->
+<!--    </table>-->
+</div>
+<div class="col-md-6">
+    <h4>Tasks to be completed</h4>
+    {% for i in task %}
+    <div class="shadow card">
+        <div class="card-body">
+            <h5 class="card-title">{{i.name}}</h5>
+            <p><b>{{i.priority}}</b></p>
+            <p><b>{{i.date}}</b></p>
+            <a class="btn btn-danger" href="{% url 'delete' i.id %}">Done</a>
+            <a class="btn btn-success" href="{% url 'update' i.id %}">Update</a>
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+
+</div>
+</div>
+</div>
+{% endblock %}
