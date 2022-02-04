@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+       Welcome to your cart. Proceed to review and place thr order.
+{% endblock %}
+
+{% block title %}
+       CART - You & Me Shop
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% if not cart_items %}
+        <div>
+        <div class="text-center">
+            <h1 class="text-center">Your Cart is Empty.</h1>
+        </div>
+        <br>
+        <p class="text-center">
+            Please Click <a href="{% url 'shop:fn_allProdCat' %}">Here</a>for continuing shopping.
+        </p>
+        </div>
+
+        {% else %}
+        <div>
+            <div class="text-center">
+                <h1 class="text-center">Your Cart Items</h1>
+                <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <table class="table custom_table">
+                    <thead class="custom_thead">
+                        <tr>
+                            <th colspan="5" style="letter-spacing: 5px;">
+                                Your Items
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><br></td>
+                    </tr>
+                        {% for cart_item in cart_items %}
+                            <tr>
+                                <td>
+                                    <a href="cart_item.product.get_absolute_url"><img src="{{ cart_item.product.image.url }}" alt="" class="rounded float-left" width="100px" height="100px"></a>
+                                </td>
+                                <td class="text-left">
+                                    {{ cart_item.product.name }}
+                                    <br>
+                                    Product ID : {{ cart_item.product.id }}
+                                    <br>
+                                    Price : {{ cart_item.product.price }} Rs/-
+                                    <br>
+                                    Qantity : {{ cart_item.quantity }} x {{ cart_item }}
+                                </td>
+                                <td>
+                                    {{ cart_item.sub_total }} Rs/-
+                                </td>
+                                <td>
+                                    {% if cart_item.quantity < cart_item.product.stock %}
+
+                                        <a href="{% url 'cart:add_cart' cart_item.product.id %}">
+                                            <i class="fas fa-plus"></i>
+                                        </a>&nbsp;&nbsp;
+
+                                        <a href="{% url 'cart:cart_remove' cart_item.product.id %}">
+                                            <i class="fas fa-minus"></i>
+                                        </a>&nbsp;&nbsp;
+                                    <a href="{% url 'cart:full_remove' cart_item.product.id %}">
+                                            <i class="fas fa-trash"></i>
+                                        </a>&nbsp;&nbsp;
+                                    {% else %}
+                                        <a href="">
+                                            <i class="fas fa-minus"></i>
+                                        </a>&nbsp;&nbsp;
+                                    <a href="">
+                                            <i class="fas fa-trash"></i>
+                                        </a>&nbsp;&nbsp;
+
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+        {% endif %}
+        <div class="col-md-6 text-center">
+            <table class=" table custom_table">
+                <thead class="custom_thead">
+                    <tr>
+                        <th colspan="5" style="letter-spacing: 5px;">
+                            Checkout
+                        </th>
+                     </tr>
+                 </thead>
+                <tbody>
+                <tr>
+                    <td><br></td>
+                </tr>
+                    <tr>
+                        <td>
+                            Please review your cart item before proceeding with order payment
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Your Total is : <strong>{{ total }}</strong>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table><br>
+            <div>
+                <a href="{% url 'shop:fn_allProdCat' %} " class="btn btn-secondary"> Continue Shopping</a>
+            </div>
+        </div>
+        </div>
+    </div>
+
+{% endblock %}

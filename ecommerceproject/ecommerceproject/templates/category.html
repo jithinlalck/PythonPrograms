@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+        {% if category %}
+            {{category.description|truncatewords:155}}
+        {% else %}
+            Welcome to You & Me Shop for buying Items...
+        {% endif %}
+{% endblock %}
+
+{% block title %}
+        {% if category %}
+            {{category.name}} - You & Me Store
+        {% else %}
+            See Our New Collection - You & Me Store
+        {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if category %}
+    <div class="row">
+        <div>
+            <p> <a href="{% url 'shop:fn_allProdCat' %}">Our Product Collection</a> </p>
+        </div>
+    </div>
+    {% endif %}
+
+    <div>
+        {% if category %}
+        <img src="{{category.image.url}}" alt="{{category.name}}" width="1100px" height="300px" >
+    </div>
+    <div style="display: flex;">
+        <h2>{{category.name}}</h2>
+        <p class="text-justify">{{category.description}}</p>
+    </div>
+    {% else %}
+    <div>
+        <img class="rounded" src="{% static 'image/banner.png' %}" alt="our Products" width="1100px" height="300px" >
+    </div>
+
+    <div>
+        <br>
+    <h2 class="text-center">Our Products Collection</h2>
+    <p class="text-justify">E-commerce is revolutionizing the way we all shop in India. Why do you want to hop from one store to another in search of the latest phone when you can find it on the Internet in a single click? Not only mobiles. You & Me Shop houses everything you can possibly imagine, from trending electronics like laptops, tablets, smartphones, and mobile accessories to in-vogue fashion staples like shoes, clothing and lifestyle accessories; from modern furniture like sofa sets, dining tables, and wardrobes to appliances that make your life easy like washing machines, TVs, ACs, mixer grinder juicers and other time-saving kitchen and small appliances; from home furnishings like cushion covers, mattresses and bedsheets to toys and musical instruments, we got them all covered. You name it, and you can stay assured about finding them all here. For those of you with erratic working hours, You & Me Shop is your best bet. Shop in your PJs, at night or in the wee hours of the morning. This e-commerce never shuts down.</p>
+    </div>
+    {% endif %}
+<br>
+
+<div class="container">
+<div class="row">
+        {% for product in products.object_list %}
+            <div class="col-sm-4">
+                <div class="card bg-light mb-3" style="max-width: 18rem;">
+                 <a href="{{product.get_url}}">
+                  <img src="{{product.image.url}}" alt="{{product.name}}" class="card-img-top">
+                 </a>
+                  <div class="card-body">
+                    <h5 class="card-title">{{product.name}}</h5>
+                    <p class="card-text">{{ product.price}} Rs</p>
+                  </div>
+                </div>
+            </div>
+        {% endfor %}
+</div>
+<!--    paginator number-->
+    <div class="mx-auto">
+        {% if products.paginator.num_pages > 1 %}
+        <hr>
+        <div class="text-center">
+            {% for pg in products.paginator.page_range %}
+            <a href="?page={{pg}}" class="btn btn-light btn-sm {% if products.number == pg %} activate {% endif %}">{{pg}}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

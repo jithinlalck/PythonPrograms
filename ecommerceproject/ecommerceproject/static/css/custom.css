@@ -1,0 +1,55 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+.nav-item{
+    letter-spacing : .2em;
+    font-size : 14px;
+    text-transform : uppercase;
+    }
+
+.dropdown-ite{
+    letter-spacing : .2em;
+    font-size : 14px;
+    text-transform : uppercase;
+    }
+
+.my_footer{
+    background-color:#f8f9fa;
+    height:60px;
+    }
+
+.my_footer p{
+    padding-top:20px;
+    font-size:14px;
+    }
+.div-content{
+    padding:200px;
+}
+
+/****category****/
+.my_row_class{
+    padding-top:15px;
+    }
+.my_row_class .mx_auto{
+    color:#000;
+    font-size:12px;
+    }
+
+.my_search_text{
+    padding-top:20px;
+    }
+
+.custom_table{
+    min-width:400px;
+    font-size:14px;
+}
+
+.custom_thead{
+    font-weight:normal;
+    text-transform:uppercase;
+    letter-spacing:2em;
+    background-color: #FFEBCD;
+
+}
+
